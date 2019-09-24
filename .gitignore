@@ -1,0 +1,5 @@
+app/logs/*
+app/pdf/*
+*pyc
+.idea/*
+venv/*
