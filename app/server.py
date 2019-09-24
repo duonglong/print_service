@@ -5,12 +5,20 @@ from logging.config import fileConfig
 
 from app.pdf_printer import PDFPrinter
 from app.configuration import load_config, options
-
+from multiprocessing import Process
 import asyncio
 
 loop = asyncio.get_event_loop()
 app = Quart(__name__)
+
+
 # fileConfig('../logging.cfg')
+
+
+@app.route('/')
+def index():
+    """Index service"""
+    return "Howdy, i'm running on port %s" % options['port']
 
 
 @app.route('/print/barcode', methods=['GET', 'POST'])
@@ -38,6 +46,19 @@ async def print_html():
     return await make_response('OK', 200)
 
 
-if __name__ == '__main__':
-    load_config()
+def shutdown():
+    """Shutdown the service"""
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+
+
+def main():
+    """Start the service"""
+    global server
     app.run(debug=True, port=int(options['port']))
+
+
+if __name__ == '__main__':
+    main()

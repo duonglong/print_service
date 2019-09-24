@@ -13,7 +13,7 @@ setup(
     name='pdfprinter',
     packages=['app', 'tools'],
     entry_points={
-        'console_scripts': ['start_pdfprinter = app.server:main']
+        'console_scripts': ['start_pdfprinter = app.server:main', 'stop_pdfprinter = app.server:shutdown']
     },
     version=__version__,
     description='Print server to be run on machine which can connect to printers',
