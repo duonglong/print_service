@@ -2,18 +2,18 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 [Setup]
-AppId={{6C4F30E7-27BD-45A5-96B7-EF19BCBCDF76}
-AppName=AMPM PRINTING
+AppId={2653CD8E-F2DB-4CB3-88B7-33E9FF51B631}
+AppName=PDFPrint
 AppVersion=1.0
 AppPublisher=ONNET
 AppPublisherURL="http://on.net.my"
-DefaultDirName={pf}\AMPM PRINTING
-DefaultGroupName=AMPM ERP
+DefaultDirName={pf}\PDFPrint
+DefaultGroupName=PDFPrint
 ; UninstallDisplayIcon={app}\MyProg.exe
 Compression=lzma2
 SolidCompression=yes
-OutputDir=userdocs:AMPMERP_Installer
-OutputBaseFilename=AMPMPrinting
+OutputDir=userdocs:PDFPrint
+OutputBaseFilename=PDFPrint
 ; "ArchitecturesAllowed=x64" specifies that Setup cannot run on
 ; anything but x64.
 ArchitecturesAllowed=x86 x64
@@ -21,71 +21,41 @@ CloseApplicationsFilter={app}\server.exe
 CloseApplications=yes
 
 [Dirs]
-Name: "{app}\UserData"; Attribs: system; Permissions: users-modify;
+Name: "{app}\app\pdf"; Attribs: system; Permissions: users-modify;
 
 [Files]
-; Source: "MyProg-x64.exe"; DestDir: "{app}\setup"; DestName: "MyProg.exe"
-; Source: "Readme.txt"; DestDir: "{app}"; Flags: isreadme
-Source: "..\AMPM_terminal\dist\*"; DestDir: "{app}"; BeforeInstall: StopAMPMPos;
-; Source: "libusb-1.0.19\*"; DestDir: "{app}\libusb-1.0.19"; Flags: recursesubdirs;
+Source: "..\app\dist\*"; DestDir: "{app}\app"; BeforeInstall: StopAMPMPos;
+Source: "..\tools\*"; DestDir: "{app}"; Flags: recursesubdirs
 Source: "nssm-2.24\*"; DestDir: "{app}\nssm"; Flags: recursesubdirs;
-Source: "AMPM.ico"; DestDir: "{app}";
-Source: "terminal.conf"; DestDir: "{app}";
-;Source: "ChromeSetup.exe"; DestDir: "{app}";
-; Source: "libusb-1.0.19\MinGW32\dll\libusb-1.0.dll"; DestDir: "{sys}"; Flags: onlyifdoesntexist;
+Source: "..\logging.cfg"; DestDir: "{app}";
+Source: "..\printer.cfg"; DestDir: "{app}";
+
 
 [Run]
-; Filename: "net"; Parameters: "stop AMPMPOS"
-Filename: "{app}\ChromeSetup.exe";  Check: not IsChromeInstalled;
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "remove AMPMPRINTING confirm"
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "install AMPMPRINTING ""{app}\server.exe"""
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set AMPMPRINTING DisplayName ""AMPM PRINTING"""
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set AMPMPRINTING Start SERVICE_AUTO_START"
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set AMPMPRINTING ObjectName LocalSystem"
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set AMPMPRINTING Type SERVICE_WIN32_OWN_PROCESS"
+Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "remove PDFPrint confirm"
+Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "install PDFPrint ""{app}\server.exe"""
+Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrint DisplayName ""PDF PRINT SERVICE"""
+Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrint Start SERVICE_AUTO_START"
+Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrint ObjectName LocalSystem"
+Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrint Type SERVICE_WIN32_OWN_PROCESS"
 Filename: "net"; Parameters: "start AMPMPRINTING";
 
 
 
 [Code]
-const
-  ChromeAppRegKey = 'Software\Microsoft\Windows\CurrentVersion\App Paths\chrome.exe';
 
-function IsChromeInstalled: Boolean;
-begin
-  // check if there's the Chrome app registration entry under the HKCU, or
-  // HKLM root key, return the result
-  Result := RegKeyExists(HKEY_CURRENT_USER, ChromeAppRegKey) or
-    RegKeyExists(HKEY_LOCAL_MACHINE, ChromeAppRegKey);
-end;
-
-procedure StopAMPMPos(); 
+procedure StopPDFPrintService(); 
 var 
   ErrorCode: Integer;
 begin
-   Log('Stop AMPMPOS service if running');
-   ShellExec('', 'net', 'stop AMPMPOS','', SW_SHOW, ewWaitUntilTerminated, ErrorCode);
+   Log('Stop PDFPrint service if running');
+   ShellExec('', 'net', 'stop PDFPrint','', SW_SHOW, ewWaitUntilTerminated, ErrorCode);
 end;
 
 function InitializeSetup(): Boolean;
 begin
   Log('InitializeSetup called');
   Result := True;
-end;
-
-function GetChromeFileName(Value: string): string;
-var
-  S: string;
-begin
-  // initialize returned value to an empty string
-  Result := '';
-  // first attempt to read the Chrome app file name from the HKCU root key;
-  // if that fails, try to read the same from HKLM; if any of that succeed,
-  // return the obtained registry value
-  if RegQueryStringValue(HKEY_CURRENT_USER, ChromeAppRegKey, '', S) or
-    RegQueryStringValue(HKEY_LOCAL_MACHINE, ChromeAppRegKey, '', S)
-  then
-    Result := S;
 end;
 
 
