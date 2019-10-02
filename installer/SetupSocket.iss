@@ -24,27 +24,27 @@ CloseApplications=yes
 Name: "{app}"; Attribs: system; Permissions: users-modify;
 
 [Files]
-Source: "server\*"; DestDir: "{app}"; BeforeInstall: StopPDFPrintingService;
+Source: "server\*"; DestDir: "{app}"; Flags: recursesubdirs;
+Source: "nssm-2.24\*"; DestDir: "{app}\nssm"; Flags: recursesubdirs;
 
 [Run]
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "remove PDFPrinting confirm"
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "install PDFPrinting ""{app}\server.exe"""
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrinting DisplayName ""PDF PRINT SERVICE"""
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrinting Start SERVICE_AUTO_START"
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrinting ObjectName LocalSystem"
+Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "remove PDFPrinting confirm"; Check: StopPDFPrintingService;
+Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "install PDFPrinting ""{app}\server.exe""";
+Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrinting DisplayName ""PDF PRINT SERVICE""";
+Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrinting Start SERVICE_AUTO_START";
+Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrinting ObjectName LocalSystem";
 Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrinting Type SERVICE_WIN32_OWN_PROCESS"
-Filename: "net"; Parameters: "start AMPMPRINTING";
-
+Filename: "net"; Parameters: "start PDFPrinting";
 
 
 [Code]
-
-procedure StopPDFPrintingService(); 
+function StopPDFPrintingService(): Boolean; 
 var 
   ErrorCode: Integer;
 begin
    Log('Stop PDFPrinting service if running');
    ShellExec('', 'net', 'stop PDFPrinting','', SW_SHOW, ewWaitUntilTerminated, ErrorCode);
+   Result := True;
 end;
 
 function InitializeSetup(): Boolean;
