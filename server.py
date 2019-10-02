@@ -21,7 +21,6 @@ def get_index_img():
 
 @app.route('/')
 def index():
-    a = 1/0
     """Index service"""
     img = get_index_img()
     return render_template("index.html", img=img, port=options.get('port', 5000))

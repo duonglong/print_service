@@ -2,18 +2,18 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 [Setup]
-AppId={2653CD8E-F2DB-4CB3-88B7-33E9FF51B631}
-AppName=PDFPrint
+AppId={{2653CD8E-F2DB-4CB3-88B7-33E9FF51B631}}
+AppName=PDFPrinting
 AppVersion=1.0
 AppPublisher=ONNET
 AppPublisherURL="http://on.net.my"
-DefaultDirName={pf}\PDFPrint
-DefaultGroupName=PDFPrint
+DefaultDirName={pf}\PDFPrinting
+DefaultGroupName=PDFPrinting
 ; UninstallDisplayIcon={app}\MyProg.exe
 Compression=lzma2
 SolidCompression=yes
-OutputDir=userdocs:PDFPrint
-OutputBaseFilename=PDFPrint
+OutputDir=userdocs:PDFPrinting
+OutputBaseFilename=PDFPrinting
 ; "ArchitecturesAllowed=x64" specifies that Setup cannot run on
 ; anything but x64.
 ArchitecturesAllowed=x86 x64
@@ -21,35 +21,30 @@ CloseApplicationsFilter={app}\server.exe
 CloseApplications=yes
 
 [Dirs]
-Name: "{app}\app\pdf"; Attribs: system; Permissions: users-modify;
+Name: "{app}"; Attribs: system; Permissions: users-modify;
 
 [Files]
-Source: "..\app\dist\*"; DestDir: "{app}\app"; BeforeInstall: StopAMPMPos;
-Source: "..\tools\*"; DestDir: "{app}"; Flags: recursesubdirs
-Source: "nssm-2.24\*"; DestDir: "{app}\nssm"; Flags: recursesubdirs;
-Source: "..\logging.cfg"; DestDir: "{app}";
-Source: "..\printer.cfg"; DestDir: "{app}";
-
+Source: "server\*"; DestDir: "{app}"; BeforeInstall: StopPDFPrintingService;
 
 [Run]
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "remove PDFPrint confirm"
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "install PDFPrint ""{app}\server.exe"""
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrint DisplayName ""PDF PRINT SERVICE"""
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrint Start SERVICE_AUTO_START"
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrint ObjectName LocalSystem"
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrint Type SERVICE_WIN32_OWN_PROCESS"
+Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "remove PDFPrinting confirm"
+Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "install PDFPrinting ""{app}\server.exe"""
+Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrinting DisplayName ""PDF PRINT SERVICE"""
+Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrinting Start SERVICE_AUTO_START"
+Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrinting ObjectName LocalSystem"
+Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrinting Type SERVICE_WIN32_OWN_PROCESS"
 Filename: "net"; Parameters: "start AMPMPRINTING";
 
 
 
 [Code]
 
-procedure StopPDFPrintService(); 
+procedure StopPDFPrintingService(); 
 var 
   ErrorCode: Integer;
 begin
-   Log('Stop PDFPrint service if running');
-   ShellExec('', 'net', 'stop PDFPrint','', SW_SHOW, ewWaitUntilTerminated, ErrorCode);
+   Log('Stop PDFPrinting service if running');
+   ShellExec('', 'net', 'stop PDFPrinting','', SW_SHOW, ewWaitUntilTerminated, ErrorCode);
 end;
 
 function InitializeSetup(): Boolean;
