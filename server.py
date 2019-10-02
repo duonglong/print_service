@@ -4,12 +4,13 @@ from quart import Quart, make_response, request, render_template
 from pdf_printer import PDFPrinter
 from configuration import load_config, options, path
 
+import logging
 import os
 import asyncio
 import random
 
 loop = asyncio.get_event_loop()
-app = Quart(__name__)
+app = Quart('PRINT_SERVICE')
 
 
 def get_index_img():
@@ -20,6 +21,7 @@ def get_index_img():
 
 @app.route('/')
 def index():
+    a = 1/0
     """Index service"""
     img = get_index_img()
     return render_template("index.html", img=img, port=options.get('port', 5000))
@@ -68,6 +70,7 @@ def main():
     """Start the service"""
     global app
     app.run(debug=True, port=int(options.get('port', 5000)))
+    app.logger.info("TEst")
 
 
 if __name__ == '__main__':

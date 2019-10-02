@@ -23,6 +23,7 @@ class PDFPrinter(object):
         self.set_filename()
         options = self.print_options()
         response = await converter.html_to_pdf(url, options)
+        _logger.info("Saved pdf to %s" % self.filename)
         if response == 200:
             command = [GSPRINT_PATH, '-ghostscript', GHOSTSCRIPT_PATH, '-printer', self.name, self.filename]
             stdout, stderr = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()

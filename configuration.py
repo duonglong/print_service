@@ -3,6 +3,8 @@ from logging.config import fileConfig
 import logging
 import os
 
+_logger = logging.getLogger("PRINT-SERVICE")
+
 path = os.path.dirname(os.path.realpath(__file__))
 LOGGING_CONFIG = path + '\\config\\logging.cfg'
 FILE_CONFIG = path + '\\config\\printer.cfg'
@@ -17,7 +19,6 @@ options = {}
 def load_config():
     """Parse config file"""
     fileConfig(LOGGING_CONFIG)
-    logging.basicConfig(filename=LOG_PATH + "server.log", level=logging.DEBUG)
     config = ConfigParser()
     config.read_file(open(FILE_CONFIG))
     sections = config.sections()
@@ -29,3 +30,4 @@ def load_config():
                 options[key] = value
             except Exception as e:
                 options[key] = False
+    _logger.info("Default Printer: %s" % options.get("default_printer", ""))
