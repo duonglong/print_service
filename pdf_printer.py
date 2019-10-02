@@ -1,19 +1,18 @@
 from datetime import datetime
-from app.htmltopdf import converter
+from htmltopdf import converter
+from configuration import GSPRINT_PATH, GHOSTSCRIPT_PATH, PDF_PATH
 import subprocess
 import logging
 
 _logger = logging.getLogger(__name__)
 
-GHOSTSCRIPT_PATH = r".\tools\GHOSTSCRIPT\bin\gswin32.exe"
-GSPRINT_PATH = r".\tools\GSPRINT\gsprint.exe"
-
 
 class PDFPrinter(object):
     """Print PDF File to Printer"""
+
     def __init__(self, name=None, width='', height='', **kwargs):
         # TODO: Support all puppeteer options
-        self.directory = './app/pdf/'
+        self.directory = PDF_PATH
         self.filename = None
         self.name = name
         self.width = width

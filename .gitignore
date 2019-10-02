@@ -1,5 +1,5 @@
-app/logs/*
-app/pdf/*
+logs/*
+pdf/*
 *pyc
 .idea/*
 venv/*
