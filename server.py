@@ -68,7 +68,7 @@ def shutdown():
 def main():
     """Start the service"""
     global app
-    app.run(debug=True, port=int(options.get('port', 5000)))
+    app.run(host='0.0.0.0', debug=True, port=int(options.get('port', 5000)))
     app.logger.info("TEst")
 
 

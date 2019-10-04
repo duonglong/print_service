@@ -1,3 +1,18 @@
-2019-10-02 15:53:16,650 - quart.serving - INFO - logging : 60 - Running on 127.0.0.1:5000 over http (CTRL + C to quit)
-2019-10-02 15:53:47,305 - quart.serving - INFO - logging : 43 - 127.0.0.1:17639 GET /print/barcode 1.1 200 2 3596290
-2019-10-02 15:54:12,784 - quart.serving - INFO - logging : 43 - 127.0.0.1:17665 GET /print/barcode 1.1 200 2 4768999
+2019-10-04 14:20:21,350 - quart.serving - INFO - logging : 60 - Running on 127.0.0.1:5000 over http (CTRL + C to quit)
+2019-10-04 14:20:38,215 - quart.serving - INFO - logging : 60 - Running on 127.0.0.1:5000 over http (CTRL + C to quit)
+2019-10-04 14:21:09,596 - quart.serving - INFO - logging : 60 - Running on 0.0.0.0:5000 over http (CTRL + C to quit)
+2019-10-04 14:21:12,389 - quart.serving - INFO - logging : 43 - 127.0.0.1:19847 GET / 1.1 200 406 12963
+2019-10-04 14:21:12,579 - quart.serving - INFO - logging : 43 - 127.0.0.1:19847 GET /static/img/main-qimg-f1394339aa89db1991bf1ac166a017f7.gif 1.1 200 - 171844
+2019-10-04 14:23:06,097 - quart.serving - INFO - logging : 43 - 192.168.0.146:39384 GET / 1.1 200 406 1025
+2019-10-04 14:23:06,277 - quart.serving - INFO - logging : 43 - 192.168.0.146:39384 GET /static/img/main-qimg-efdec742ae56fda32e00336d6975a557.gif 1.1 200 - 18753
+2019-10-04 14:23:06,300 - quart.serving - INFO - logging : 43 - 192.168.0.146:39384 GET /favicon.ico 1.1 404 103 0
+2019-10-04 14:23:10,202 - quart.serving - INFO - logging : 43 - 192.168.0.146:39384 GET / 1.1 200 406 1995
+2019-10-04 14:23:10,277 - quart.serving - INFO - logging : 43 - 192.168.0.146:39384 GET /static/img/main-qimg-9e8276ada62b95bec1b4ba47c3c04865.gif 1.1 200 - 33045
+2019-10-04 14:23:17,919 - quart.serving - INFO - logging : 43 - 192.168.0.146:39394 GET / 1.1 200 406 1997
+2019-10-04 14:23:17,970 - quart.serving - INFO - logging : 43 - 192.168.0.146:39394 GET /static/img/main-qimg-9e1869627cc0ea23c5b9bb6fe9a2ad22.gif 1.1 200 - 20943
+2019-10-04 14:23:22,485 - quart.serving - INFO - logging : 43 - 192.168.0.146:39394 GET / 1.1 200 406 2958
+2019-10-04 14:23:22,754 - quart.serving - INFO - logging : 43 - 192.168.0.146:39394 GET /static/img/main-qimg-220a22bcd42fb20cad6f5dae459d77d5.gif 1.1 200 - 28920
+2019-10-04 14:24:29,565 - quart.serving - INFO - logging : 60 - Running on 127.0.0.1:5000 over http (CTRL + C to quit)
+2019-10-04 14:24:49,846 - quart.serving - INFO - logging : 60 - Running on 0.0.0.0:5000 over http (CTRL + C to quit)
+2019-10-04 14:24:51,496 - quart.serving - INFO - logging : 43 - 192.168.0.146:39422 GET / 1.1 200 406 0
+2019-10-04 14:24:51,882 - quart.serving - INFO - logging : 43 - 192.168.0.146:39422 GET /static/img/main-qimg-3cbe0a3ce10aa587cebeeb264a0930f1.gif 1.1 200 - 168994
