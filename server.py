@@ -29,10 +29,14 @@ def index():
 @app.route('/print/barcode', methods=['GET', 'POST'])
 async def print_barcode():
     try:
-        url = request.args.get('reporturl')
+        if request.method == 'POST':
+            data = await request.get_json(silent=True)
+        else:
+            data = request.args
+        url = data.get('reporturl')
         if not url:
             return await make_response('Report URL is missing !', 200)
-        printer_name = request.args.get('printer', options['default_printer'])
+        printer_name = data.get('printer', options['default_printer'])
         printer = PDFPrinter(width='1.97 in', height='1.18 in', name=printer_name)
         await asyncio.ensure_future(printer.print(url))
         return await make_response('OK', 200)
@@ -43,18 +47,22 @@ async def print_barcode():
 @app.route('/print', methods=['GET', 'POST'])
 async def print_html():
     try:
-        url = request.args.get('reporturl')
+        if request.method == 'POST':
+            data = await request.get_json(silent=True)
+        else:
+            data = request.args
+        url = data.get('reporturl')
         if not url:
-            return await make_response('Report URL is missing !', 200)
-        printer_name = request.args.get('printer', options['default_printer'])
+            return await make_response('Report URL is missing !', 500)
+        printer_name = data.get('printer', options['default_printer'])
         # Default is A4
-        width = request.args.get('width', '23.4 in')
-        height = request.args.get('height', '33.1 in')
+        width = data.get('width', '23.4 in')
+        height = data.get('height', '33.1 in')
         printer = PDFPrinter(width=width, height=height, name=printer_name)
         await asyncio.ensure_future(printer.print(url))
         return await make_response('OK', 200)
     except Exception as e:
-        return await make_response(str(e), 200)
+        return await make_response(str(e), 500)
 
 
 def shutdown():
