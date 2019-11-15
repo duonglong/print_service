@@ -1,9 +1,9 @@
 # Simple http service for printing job
 __version__ = '1.0.0'
-from quart import Quart, make_response, request, render_template
+from quart import Quart, make_response, request, render_template, jsonify
 from pdf_printer import PDFPrinter
 from configuration import load_config, options, path
-
+from list_printer import list_printers
 import logging
 import os
 import asyncio
@@ -24,6 +24,13 @@ def index():
     """Index service"""
     img = get_index_img()
     return render_template("index.html", img=img, port=options.get('port', 5000))
+
+
+@app.route('/getPrinters')
+def get_printers():
+    """List all available printers"""
+    printers = list_printers()
+    return jsonify(printers)
 
 
 @app.route('/print/barcode', methods=['GET', 'POST'])
