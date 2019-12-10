@@ -4,8 +4,6 @@ from configuration import GSPRINT_PATH, GHOSTSCRIPT_PATH, PDF_PATH
 import subprocess
 import logging
 
-_logger = logging.getLogger(__name__)
-
 
 class PDFPrinter(object):
     """Print PDF File to Printer"""
@@ -21,10 +19,11 @@ class PDFPrinter(object):
 
     async def print(self, url):
         self.set_filename()
+        _logger = logging.getLogger('quart.serving')
         options = self.print_options()
         response = await converter.html_to_pdf(url, options)
-        _logger.info("Saved pdf to %s" % self.filename)
         if response == 200:
+            _logger.info("Saved pdf to %s" % self.filename)
             command = [GSPRINT_PATH, '-ghostscript', GHOSTSCRIPT_PATH, '-printer', self.name, self.filename]
             stdout, stderr = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
             if stderr:

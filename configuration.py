@@ -12,6 +12,7 @@ GHOSTSCRIPT_PATH = path + "\\tools\\GHOSTSCRIPT\\bin\\gswin32.exe"
 GSPRINT_PATH = path + "\\tools\\GSPRINT\\gsprint.exe"
 PDF_PATH = path + "\\pdf\\"
 LOG_PATH = path + "\\logs\\"
+CHROMIUM_PATH = path + "\\local-chromium\\chrome_puppet.exe"
 
 options = {}
 

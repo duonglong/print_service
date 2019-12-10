@@ -4,3 +4,7 @@ pdf/*
 .idea/*
 venv/*
 output/*
+installer/server/*
+local-chromium/*
+build/*
+dist/*

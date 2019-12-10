@@ -14,39 +14,28 @@ Compression=lzma2
 SolidCompression=yes
 OutputDir=userdocs:PDFPrinting
 OutputBaseFilename=PDFPrinting
-; "ArchitecturesAllowed=x64" specifies that Setup cannot run on
-; anything but x64.
 ArchitecturesAllowed=x86 x64
-CloseApplicationsFilter={app}\server.exe
+CloseApplicationsFilter={app}\PDFPrinting.exe
 CloseApplications=yes
 
 [Dirs]
 Name: "{app}"; Attribs: system; Permissions: users-modify;
 
 [Files]
-Source: "server\*"; DestDir: "{app}"; Flags: recursesubdirs;
-Source: "nssm-2.24\*"; DestDir: "{app}\nssm"; Flags: recursesubdirs;
+Source: "..\dist\PDFPrinting\*"; DestDir: "{app}"; Flags: recursesubdirs;
 
 [Run]
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "remove PDFPrinting confirm"; Check: StopPDFPrintingService;
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "install PDFPrinting ""{app}\server.exe""";
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrinting DisplayName ""PDF PRINT SERVICE""";
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrinting Start SERVICE_AUTO_START";
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrinting ObjectName LocalSystem";
-Filename: "{app}\nssm\win32\nssm.exe"; Parameters: "set PDFPrinting Type SERVICE_WIN32_OWN_PROCESS"
-Filename: "net"; Parameters: "start PDFPrinting";
+Filename: "{app}\PDFPrinting.exe";
 
+[Tasks]
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; \
+    GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+
+[Icons]
+Name: "{userdesktop}\PDFPrinting"; Filename: "{app}\PDFPrinting.exe"; Tasks: desktopicon;
+Name: "{userstartup}\PDFPRinting"; Filename: "{app}\PDFPrinting.exe"; WorkingDir: "{app}";
 
 [Code]
-function StopPDFPrintingService(): Boolean; 
-var 
-  ErrorCode: Integer;
-begin
-   Log('Stop PDFPrinting service if running');
-   ShellExec('', 'net', 'stop PDFPrinting','', SW_SHOW, ewWaitUntilTerminated, ErrorCode);
-   Result := True;
-end;
-
 function InitializeSetup(): Boolean;
 begin
   Log('InitializeSetup called');

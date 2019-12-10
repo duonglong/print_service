@@ -4,7 +4,7 @@ from quart import Quart, make_response, request, render_template, jsonify
 from pdf_printer import PDFPrinter
 from configuration import load_config, options, path
 from list_printer import list_printers
-import logging
+import socket
 import os
 import asyncio
 import random
@@ -45,7 +45,7 @@ async def print_barcode():
             return await make_response('Report URL is missing !', 200)
         printer_name = data.get('printer', options['default_printer'])
         printer = PDFPrinter(width='1.97 in', height='1.18 in', name=printer_name)
-        await asyncio.ensure_future(printer.print(url))
+        asyncio.ensure_future(printer.print(url))
         return await make_response('OK', 200)
     except Exception as e:
         return await make_response(str(e), 200)
@@ -72,21 +72,21 @@ async def print_html():
         return await make_response(str(e), 500)
 
 
+@app.route('/shutdown', methods=['GET', 'POST'])
 def shutdown():
-    """Shutdown the service"""
-    func = request.environ.get('werkzeug.server.shutdown')
-    if func is None:
-        raise RuntimeError('Not running with the Werkzeug Server')
-    func()
+    pass
 
 
 def main():
     """Start the service"""
-    global app
-    app.run(host='0.0.0.0', debug=True, port=int(options.get('port', 5000)))
-    app.logger.info("TEst")
+    port = int(options.get('port', 5000))
+    app.run(host='0.0.0.0', port=port, loop=loop)
+
+
+def run():
+    load_config()
+    main()
 
 
 if __name__ == '__main__':
-    load_config()
-    main()
+    run()
