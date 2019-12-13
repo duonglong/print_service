@@ -24,9 +24,6 @@ Name: "{app}"; Attribs: system; Permissions: users-modify;
 [Files]
 Source: "..\dist\PDFPrinting\*"; DestDir: "{app}"; Flags: recursesubdirs;
 
-[Run]
-Filename: "{app}\PDFPrinting.exe";
-
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; \
     GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked

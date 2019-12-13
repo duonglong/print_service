@@ -4,7 +4,7 @@ from quart import Quart, make_response, request, render_template, jsonify
 from pdf_printer import PDFPrinter
 from configuration import load_config, options, path
 from list_printer import list_printers
-import socket
+from htmltopdf import converter
 import os
 import asyncio
 import random
@@ -80,6 +80,7 @@ def shutdown():
 def main():
     """Start the service"""
     port = int(options.get('port', 5000))
+    loop.run_until_complete(converter.ainit())
     app.run(host='0.0.0.0', port=port, loop=loop)
 
 
