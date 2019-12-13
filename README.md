@@ -16,3 +16,4 @@ The compiled files will be put under **./dist** directory
 - Open _SetupSocker.iss_ using Inno Setup then click Run to create installer
 - The installer will be put under user's **Documents** folder by default
  
+ **NOTE**: Fore unknown reason pyinstaller won't consider empty folder as resource so need to add 2 followings folders to **dist/PDFPrinting** manually: **pdf** and **logs**
