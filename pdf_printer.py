@@ -1,6 +1,6 @@
 from datetime import datetime
 from htmltopdf import converter
-from configuration import GSPRINT_PATH, GHOSTSCRIPT_PATH, PDF_PATH
+from configuration import FOXIT_READER, PDF_PATH
 import subprocess
 import logging
 
@@ -24,7 +24,7 @@ class PDFPrinter(object):
         response = await converter.html_to_pdf(url, options)
         if response == 200:
             _logger.info("Saved pdf to %s" % self.filename)
-            command = [GSPRINT_PATH, '-ghostscript', GHOSTSCRIPT_PATH, '-printer', self.name, self.filename]
+            command = [FOXIT_READER, '/t',  self.filename, self.name]
             stdout, stderr = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
             if stderr:
                 _logger.info(stderr)

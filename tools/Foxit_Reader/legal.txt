@@ -1,0 +1,27 @@
+Copyright (C) 2015-2019  Foxit Software Incorporated. All Rights Reserved.
+No part of this document can be reproduced, transferred, distributed or stored in any 
+format without the prior written permission of Foxit.
+-------------------------------------------------------------
+LucenePlusPlus
+Copyright (c) 2009-2014 Alan Wright. All rights reserved.
+Distributable under the terms of either the Apache License (Version 2.0) or the GNU Lesser General Public License.  
+
+The following source code files has been modified:
+LucenePlusPlus\CMakeLists.txt
+LucenePlusPlus\src\contrib\highlighter\TokenSources.cpp
+LucenePlusPlus\src\contrib\analyzers\common\analysis\fr\ElisionFilter.cpp
+LucenePlusPlus\src\contrib\analyzers\common\analysis\nl\DutchStemmer.cpp
+LucenePlusPlus\src\contrib\highlighter\GradientFormatter.cpp
+LucenePlusPlus\src\contrib\highlighter\Highlighter.cpp
+LucenePlusPlus\src\contrib\highlighter\QueryScorer.cpp
+LucenePlusPlus\src\contrib\highlighter\QueryTermScorer.cpp
+LucenePlusPlus\src\contrib\highlighter\TextFragment.cpp
+LucenePlusPlus\src\contrib\highlighter\TokenGroup.cpp
+LucenePlusPlus\src\contrib\include\DutchStemmer.h
+LucenePlusPlus\src\core\CMakeLists.txt
+LucenePlusPlus\src\core\search\MultiTermQueryWrapperFilter.cpp
+LucenePlusPlus\src\core\index\IndexReader.cpp
+LucenePlusPlus\src\core\search\IndexSearcher.cpp
+LucenePlusPlus\include\IndexReader.h
+LucenePlusPlus\include\IndexSearcher.h
+-------------------------------------------------------------

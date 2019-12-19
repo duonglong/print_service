@@ -1,0 +1,62 @@
+	#foxit-ad-container {
+			width: 670px;
+			height: 247px;
+			background-size: cover;
+			text-align: center;
+			font-family: 'Open Sans', sans-serif;
+		}
+
+		#logo-div {
+			text-align: left;
+			height: 39px;
+		}
+
+		#issuu-logo {
+			width: 90px;
+		}
+
+		h2 {
+			margin-bottom: -5px;
+		}
+
+		#ad-copy {
+			text-align: center;
+		}
+
+		#ad-copy p {
+			font-size: 15px;
+			padding: 0px 40px;
+      line-height:22px;
+      margin-bottom:25px;
+		}
+
+		#content {
+			color: white;
+		}
+    img {
+      border: 0;
+    }
+		.button {
+			font-family: "Open Sans", open sans;
+			font-size: 13px;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			color: #ffffff;
+			background-color: #f36d5d;
+			border-radius: 40px 40px 40px 40px;
+			border-style: none;
+			border: 0;
+			padding: 7px 26px;
+			box-shadow: 1px 1px 2px #464646;
+      text-decoration: none;
+		}
+		.button:hover {
+			cursor: pointer !important;
+			background: #f17d6f;
+		}
+		
+		.foxit-background-base64 {
+			background: url(issuu-bg.jpg)
+		}
+		
